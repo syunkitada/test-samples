@@ -4,7 +4,7 @@
 AC_PREREQ([2.69])
 AC_INIT([hello], [0.1], [syun.kitada@gmail.com])
 AM_INIT_AUTOMAKE
-AC_CONFIG_SRCDIR([config.h.in])
+AC_CONFIG_SRCDIR([src/hello.h])
 AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.
