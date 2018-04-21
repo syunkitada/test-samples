@@ -1,0 +1,32 @@
+#!/bin/sh
+
+# Require packages
+# sudo apt-get install autoconf automake m4
+
+NAME=hello
+VERSION=0.1
+EMAIL=syun.kitada@gmail.com
+
+
+# Generate files
+touch NEWS AUTHORS ChangeLog
+test -e README || ln -s README.md README
+
+
+# Generate configure.ac
+autoscan
+mv configure.scan configure.ac
+sed -i "s/AC_INIT.*/AC_INIT([${NAME}], [${VERSION}], [${EMAIL}])/g" configure.ac
+sed -i '/AC_INIT/aAM_INIT_AUTOMAKE' configure.ac
+
+
+# Generate Makefile.in
+autoheader
+aclocal
+automake -a -c
+
+
+# Generate configure
+autoreconf --install --force || exit 1
+
+echo "Please run ./configure, make and make install."
